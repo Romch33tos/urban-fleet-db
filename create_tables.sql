@@ -27,3 +27,43 @@ CREATE TABLE vehicle (
     division_id NUMBER(7),
     CONSTRAINT fk_vehicle_division FOREIGN KEY (division_id) REFERENCES division(id)
 );
+
+CREATE TABLE route (
+    id NUMBER(7) PRIMARY KEY,
+    route_number VARCHAR2(20) NOT NULL,
+    start_point VARCHAR2(200),
+    end_point VARCHAR2(200),
+    distance NUMBER(10,2)
+);
+
+CREATE TABLE repair (
+    id NUMBER(7) PRIMARY KEY,
+    vehicle_id NUMBER(7) NOT NULL,
+    repair_type VARCHAR2(100),
+    start_date DATE,
+    end_date DATE,
+    cost NUMBER(12,2),
+    status VARCHAR2(30),
+    CONSTRAINT fk_repair_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id)
+);
+
+CREATE TABLE statistic (
+    id NUMBER(7) PRIMARY KEY,
+    report_date DATE,
+    period_type VARCHAR2(20),
+    route_id NUMBER(7),
+    total_passengers NUMBER(10),
+    total_mileage NUMBER(10,2),
+    repair_costs NUMBER(12,2),
+    CONSTRAINT fk_statistic_route FOREIGN KEY (route_id) REFERENCES route(id)
+);
+
+CREATE TABLE assignment (
+    id NUMBER(7) PRIMARY KEY,
+    vehicle_id NUMBER(7) NOT NULL,
+    route_id NUMBER(7) NOT NULL,
+    driver_id NUMBER(7) NOT NULL,
+    CONSTRAINT fk_assignment_vehicle FOREIGN KEY (vehicle_id) REFERENCES vehicle(id),
+    CONSTRAINT fk_assignment_route FOREIGN KEY (route_id) REFERENCES route(id),
+    CONSTRAINT fk_assignment_driver FOREIGN KEY (driver_id) REFERENCES employee(id)
+);
