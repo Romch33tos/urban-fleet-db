@@ -143,3 +143,11 @@
 @insert_assignment.sql 18 15 42 4
 @insert_assignment.sql 19 7 33 9
 @insert_assignment.sql 20 11 34 15
+
+COMMIT;
+
+@describe_tables.sql
+
+@show_constraints.sql
+
+@select_data.sql
